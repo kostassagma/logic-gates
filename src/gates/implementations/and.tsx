@@ -44,10 +44,8 @@ export default class ANDGate extends LogicNode {
       <div
         className="z-30 cursor-pointer group absolute w-20 h-20 flex flex-col"
         style={{
-          // left: camera.x+pos.x,
-          // top: camera.y+pos.y
-          left: 200,
-          top: 200,
+          left: camera.x+pos.x,
+          top: camera.y+pos.y
         }}
         onMouseDown={(e) => {
           e.preventDefault();
