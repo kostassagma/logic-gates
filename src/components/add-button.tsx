@@ -1,24 +1,41 @@
 import { FC, useState } from "react";
-import LogicNode from "../gates/implementations/logic-node";
+// import LogicNode from "../gates/implementations/logic-node";
 import ANDIcon from "../assets/AND.svg";
 import ORIcon from "../assets/OR.svg";
 import XORIcon from "../assets/XOR.svg";
 import NANDIcon from "../assets/NAND.svg";
 import NORIcon from "../assets/NOR.svg";
 import XNORIcon from "../assets/XNOR.svg";
-import ANDGate from "../gates/implementations/and";
-import ORGate from "../gates/implementations/or";
-import XORGate from "../gates/implementations/xor";
-import NANDGate from "../gates/implementations/nand";
-import NORGate from "../gates/implementations/nor";
-import XNORGate from "../gates/implementations/xnor";
+import { uselogicGatesStore } from "../state/gates";
+import { nanoid } from "nanoid";
+import { useGlobalSettingsStore } from "../state/globalSettings";
 
-interface Props {
-  setLogicNodes: React.Dispatch<React.SetStateAction<LogicNode[]>>;
-}
+const imgs = {
+  AND: ANDIcon,
+  OR: ORIcon,
+  XOR: XORIcon,
+  NAND: NANDIcon,
+  NOR: NORIcon,
+  XNOR: XNORIcon,
+};
 
-const AddButton: FC<Props> = ({ setLogicNodes }) => {
+// interface Props {
+//   add: React.Dispatch<React.SetStateAction<LogicNode[]>>;
+// }
+
+const AddButton: FC = () => {
   const [adding, setAdding] = useState(false);
+  const { cameraX, cameraY } = useGlobalSettingsStore();
+  const { add } = uselogicGatesStore();
+
+  function onClick(gate: "AND" | "OR" | "XOR" | "NAND" | "XNOR" | "NOR") {
+    add({
+      gate,
+      id: nanoid(),
+      posX: -cameraX + window.innerWidth / 2,
+      posY: -cameraY + window.innerHeight / 2,
+    });
+  }
 
   return (
     <>
@@ -38,72 +55,17 @@ const AddButton: FC<Props> = ({ setLogicNodes }) => {
           adding ? "right-5" : "-right-full"
         } transition-all ease-in-out py-1.5 flex flex-col`}
       >
-        <button
-          className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setLogicNodes((old) => [...old, new ANDGate()]);
-            setAdding(false);
-          }}
-        >
-          <img src={ANDIcon} alt="and" className="h-10 w-10" />
-          <p className="my-auto">And Gate</p>
-        </button>
-        <button
-          className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setLogicNodes((old) => [...old, new ORGate()]);
-            setAdding(false);
-          }}
-        >
-          <img src={ORIcon} alt="and" className="h-10 w-10" />
-          <p className="my-auto">Or Gate</p>
-        </button>
-        <button
-          className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setLogicNodes((old) => [...old, new XORGate()]);
-            setAdding(false);
-          }}
-        >
-          <img src={XORIcon} alt="and" className="h-10 w-10" />
-          <p className="my-auto">Xor Gate</p>
-        </button>
-        <button
-          className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setLogicNodes((old) => [...old, new NANDGate()]);
-            setAdding(false);
-          }}
-        >
-          <img src={NANDIcon} alt="and" className="h-10 w-10" />
-          <p className="my-auto">NAND Gate</p>
-        </button>
-        <button
-          className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setLogicNodes((old) => [...old, new NORGate()]);
-            setAdding(false);
-          }}
-        >
-          <img src={NORIcon} alt="and" className="h-10 w-10" />
-          <p className="my-auto">Nor Gate</p>
-        </button>
-        <button
-          className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-          onClick={(e) => {
-            e.preventDefault();
-            setLogicNodes((old) => [...old, new XNORGate()]);
-            setAdding(false);
-          }}
-        >
-          <img src={XNORIcon} alt="and" className="h-10 w-10" />
-          <p className="my-auto">Xnor Gate</p>
-        </button>
+          <button
+            className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
+            onClick={(e) => {
+              e.preventDefault();
+              setAdding(false);
+              onClick("AND");
+            }}
+          >
+            <img src={ANDIcon} alt="and" className="h-10 w-10" />
+            <p className="my-auto">And Gate</p>
+          </button>
       </div>
       <button
         className={`z-50 fixed bottom-5 right-5 rounded-full bg-white shadow-xl p-3 transition ease-in-out hover:scale-105 ${
@@ -112,7 +74,7 @@ const AddButton: FC<Props> = ({ setLogicNodes }) => {
         onClick={(e) => {
           e.preventDefault();
           setAdding(!adding);
-          // setLogicNodes((prev) => [...prev, new ANDGate()]);
+          // add((prev) => [...prev, new ANDGate()]);
         }}
       >
         <svg

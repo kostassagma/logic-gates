@@ -20,6 +20,9 @@ export default class ANDGate extends LogicNode {
     const [cursorDown, setCursorDown] = useState(false);
     const [pos, setPos] = useState({ x: this.posX, y: this.posY });
 
+    // console.log(cursorDown);
+    // console.log(camera);
+
     useEffect(() => {
       function onMouseMove(e: MouseEvent) {
         if (cursorDown) {
@@ -44,8 +47,8 @@ export default class ANDGate extends LogicNode {
       <div
         className="z-30 cursor-pointer group absolute w-20 h-20 flex flex-col"
         style={{
-          left: camera.x+pos.x,
-          top: camera.y+pos.y
+          left: camera.x + pos.x,
+          top: camera.y + pos.y,
         }}
         onMouseDown={(e) => {
           e.preventDefault();
@@ -77,6 +80,12 @@ export default class ANDGate extends LogicNode {
           </svg>
         </button>
         <img src={svgIcon} />
+        <div>
+          {JSON.stringify({
+            left: camera.x + pos.x,
+            top: camera.y + pos.y,
+          })}
+        </div>
       </div>
     );
   };

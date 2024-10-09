@@ -1,7 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-import LogicNode from "./gates/implementations/logic-node";
+// import LogicNode from "./gates/implementations/logic-node";
 import AddButton from "./components/add-button";
 import Background from "./components/background";
+import { uselogicGatesStore } from "./state/gates";
+import GateComponent from "./gates/gate-component";
+import { useGlobalSettingsStore } from "./state/globalSettings";
 
 interface CameraContextType {
   x: number;
@@ -12,46 +15,44 @@ export const CameraContext = createContext({} as CameraContextType);
 
 function App() {
   const [cursorDown, setCursorDown] = useState(false);
-  const [camera, setCamera] = useState({ x: 0, y: 0 });
-  const [logicNodes, setLogicNodes] = useState<LogicNode[]>([]);
+  const { gates, } = uselogicGatesStore();
+  const { moveCamera } = useGlobalSettingsStore();
 
   useEffect(() => {
     function onMouseMove(e: MouseEvent) {
       if (cursorDown) {
-        setCamera((oldCamera) => ({
-          x: oldCamera.x + e.movementX,
-          y: oldCamera.y + e.movementY,
-        }));
+        moveCamera({
+          x: e.movementX,
+          y: e.movementY,
+        });
       }
     }
 
     document.addEventListener("mousemove", onMouseMove);
 
     return () => document.removeEventListener("mousemove", onMouseMove);
-  }, [cursorDown]);
+  }, [cursorDown, moveCamera]);
 
   return (
     <div className="w-screen h-screen overflow-hidden">
-      <CameraContext.Provider value={camera}>
-        <Background />
-        <div
-          className={`absolute w-screen h-screen overflow-hidden top-0 left-0 -z-10 ${
-            cursorDown ? "cursor-move" : "cursor-auto"
-          }`}
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setCursorDown(true);
-          }}
-          onMouseUp={(e) => {
-            e.preventDefault();
-            setCursorDown(false);
-          }}
-        ></div>
-        {logicNodes.map((e) => {
-          return <e.render />;
-        })}
-        <AddButton setLogicNodes={setLogicNodes} />
-      </CameraContext.Provider>
+      <Background />
+      <div
+        className={`absolute w-screen h-screen overflow-hidden top-0 left-0 -z-10 ${
+          cursorDown ? "cursor-move" : "cursor-auto"
+        }`}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          setCursorDown(true);
+        }}
+        onMouseUp={(e) => {
+          e.preventDefault();
+          setCursorDown(false);
+        }}
+      ></div>
+      {gates.map((e, i) => {
+        return <GateComponent {...e} key={i} />;
+      })}
+      <AddButton />
     </div>
   );
 }
