@@ -2,11 +2,11 @@ import { FC, useEffect, useState } from "react";
 import { GateType } from "./types";
 import { uselogicGatesStore } from "../state/gates";
 import { useGlobalSettingsStore } from "../state/global-settings";
-import ANDIcon from "../icons/ADD";
+import GateIcon from "./gate-icon";
 
 // interface Props extends GateType {}
 
-const GateComponent: FC<GateType> = ({ posX, posY, id }) => {
+const GateComponent: FC<GateType> = ({ posX, posY, id, gate }) => {
   const { cameraX, cameraY } = useGlobalSettingsStore();
   const [cursorDown, setCursorDown] = useState(false);
   const { moveNode, deleteNode } = uselogicGatesStore();
@@ -64,7 +64,12 @@ const GateComponent: FC<GateType> = ({ posX, posY, id }) => {
             />
           </svg>
         </button>
-        <ANDIcon width={80} height={80} className="text-white absolute top-0 left-0" color="" />
+        <GateIcon
+          gate={gate}
+          width={80}
+          height={80}
+          className="text-white absolute top-0 left-0"
+        />
       </div>
     </div>
   );

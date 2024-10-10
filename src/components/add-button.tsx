@@ -3,7 +3,12 @@ import { FC, useState } from "react";
 import { uselogicGatesStore } from "../state/gates";
 import { nanoid } from "nanoid";
 import { useGlobalSettingsStore } from "../state/global-settings";
-import ANDIcon from "../icons/ADD";
+import ANDIcon from "../icons/AND";
+import ORIcon from "../icons/OR";
+import XORIcon from "../icons/XOR";
+import NANDIcon from "../icons/NAND";
+import NORIcon from "../icons/NOR";
+import XNORIcon from "../icons/XNOR";
 
 // interface Props {
 //   add: React.Dispatch<React.SetStateAction<LogicNode[]>>;
@@ -51,6 +56,61 @@ const AddButton: FC = () => {
         >
           <ANDIcon width={40} height={40} />
           <p className="my-auto">And Gate</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("OR");
+          }}
+        >
+          <ORIcon width={40} height={40} />
+          <p className="my-auto">Or Gate</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("XOR");
+          }}
+        >
+          <XORIcon width={40} height={40} />
+          <p className="my-auto">Xor Gate</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("NAND");
+          }}
+        >
+          <NANDIcon width={40} height={40} />
+          <p className="my-auto">Nand Gate</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("NOR");
+          }}
+        >
+          <NORIcon width={40} height={40} />
+          <p className="my-auto">Nor Gate</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("XNOR");
+          }}
+        >
+          <XNORIcon width={40} height={40} />
+          <p className="my-auto">Xnor Gate</p>
         </button>
       </div>
       <button
