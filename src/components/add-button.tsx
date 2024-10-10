@@ -1,23 +1,10 @@
 import { FC, useState } from "react";
 // import LogicNode from "../gates/implementations/logic-node";
 import ANDIcon from "../assets/AND.svg";
-import ORIcon from "../assets/OR.svg";
-import XORIcon from "../assets/XOR.svg";
-import NANDIcon from "../assets/NAND.svg";
-import NORIcon from "../assets/NOR.svg";
-import XNORIcon from "../assets/XNOR.svg";
 import { uselogicGatesStore } from "../state/gates";
 import { nanoid } from "nanoid";
 import { useGlobalSettingsStore } from "../state/globalSettings";
 
-const imgs = {
-  AND: ANDIcon,
-  OR: ORIcon,
-  XOR: XORIcon,
-  NAND: NANDIcon,
-  NOR: NORIcon,
-  XNOR: XNORIcon,
-};
 
 // interface Props {
 //   add: React.Dispatch<React.SetStateAction<LogicNode[]>>;
