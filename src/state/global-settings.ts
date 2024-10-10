@@ -6,6 +6,8 @@ interface GlobalSettingsType {
   cameraX: number;
   cameraY: number;
   moveCamera: (by: { x: number; y: number }) => void;
+  darkTheme: boolean;
+  changeDarkTheme: (toggled: boolean) => void;
 }
 
 export const useGlobalSettingsStore = create<GlobalSettingsType>()(
@@ -18,6 +20,12 @@ export const useGlobalSettingsStore = create<GlobalSettingsType>()(
           set((state) => ({
             cameraX: state.cameraX + by.x,
             cameraY: state.cameraY + by.y,
+          }));
+        },
+        darkTheme: false,
+        changeDarkTheme: (toggled: boolean) => {
+          set(() => ({
+            darkTheme: toggled,
           }));
         },
       }),

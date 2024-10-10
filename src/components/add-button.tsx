@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
 // import LogicNode from "../gates/implementations/logic-node";
-import ANDIcon from "../assets/AND.svg";
 import { uselogicGatesStore } from "../state/gates";
 import { nanoid } from "nanoid";
-import { useGlobalSettingsStore } from "../state/globalSettings";
-
+import { useGlobalSettingsStore } from "../state/global-settings";
+import ANDIcon from "../icons/ADD";
 
 // interface Props {
 //   add: React.Dispatch<React.SetStateAction<LogicNode[]>>;
@@ -38,30 +37,29 @@ const AddButton: FC = () => {
         }}
       />
       <div
-        className={`z-50 rounded bg-white shadow-xl fixed bottom-20 ${
+        className={`z-50 rounded bg-white dark:bg-black dark:text-white shadow-xl fixed bottom-20 ${
           adding ? "right-5" : "-right-full"
         } transition-all ease-in-out py-1.5 flex flex-col`}
       >
-          <button
-            className="px-3 py-1.5 hover:bg-gray-100 transition-all ease-in-out flex flex-row gap-1"
-            onClick={(e) => {
-              e.preventDefault();
-              setAdding(false);
-              onClick("AND");
-            }}
-          >
-            <img src={ANDIcon} alt="and" className="h-10 w-10" />
-            <p className="my-auto">And Gate</p>
-          </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("AND");
+          }}
+        >
+          <ANDIcon width={40} height={40} />
+          <p className="my-auto">And Gate</p>
+        </button>
       </div>
       <button
-        className={`z-50 fixed bottom-5 right-5 rounded-full bg-white shadow-xl p-3 transition ease-in-out hover:scale-105 ${
+        className={`z-50 fixed bottom-5 right-5 rounded-full bg-white dark:bg-black dark:text-gray-300 shadow-xl p-3 transition ease-in-out hover:scale-105 ${
           adding ? "rotate-45" : "rotate-0"
         }`}
         onClick={(e) => {
           e.preventDefault();
           setAdding(!adding);
-          // add((prev) => [...prev, new ANDGate()]);
         }}
       >
         <svg

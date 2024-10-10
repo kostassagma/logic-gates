@@ -4,7 +4,8 @@ import AddButton from "./components/add-button";
 import Background from "./components/background";
 import { uselogicGatesStore } from "./state/gates";
 import GateComponent from "./gates/gate-component";
-import { useGlobalSettingsStore } from "./state/globalSettings";
+import { useGlobalSettingsStore } from "./state/global-settings";
+import ThemeToggle from "./components/theme-toggle";
 
 interface CameraContextType {
   x: number;
@@ -16,7 +17,7 @@ export const CameraContext = createContext({} as CameraContextType);
 function App() {
   const [cursorDown, setCursorDown] = useState(false);
   const { gates, } = uselogicGatesStore();
-  const { moveCamera } = useGlobalSettingsStore();
+  const { moveCamera, darkTheme } = useGlobalSettingsStore();
 
   useEffect(() => {
     function onMouseMove(e: MouseEvent) {
@@ -34,7 +35,7 @@ function App() {
   }, [cursorDown, moveCamera]);
 
   return (
-    <div className="w-screen h-screen overflow-hidden">
+    <div className={`w-screen h-screen overflow-hidden ${darkTheme?"dark":"light"}`}>
       <Background />
       <div
         className={`absolute w-screen h-screen overflow-hidden top-0 left-0 -z-10 ${
@@ -53,6 +54,7 @@ function App() {
         return <GateComponent {...e} key={i} />;
       })}
       <AddButton />
+      <ThemeToggle/>
     </div>
   );
 }
