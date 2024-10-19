@@ -7,23 +7,13 @@ import { useValue } from "./get-value";
 
 // interface Props extends GateType {}
 
-const GateComponent: FC<GateType> = ({
-  posX,
-  posY,
-  id,
-  gate,
-  inputA,
-  inputB,
-}) => {
+const DisplayComponent: FC<GateType> = ({ posX, posY, id, gate, inputA }) => {
   const { cameraX, cameraY, draggingLine, changeDraggingLine } =
     useGlobalSettingsStore();
   const [cursorDown, setCursorDown] = useState(false);
   const [movingA, setMovingA] = useState(false);
-  const [movingB, setMovingB] = useState(false);
-  const { moveNode, deleteNode, gates, addInputA, addInputB } =
-    uselogicGatesStore();
+  const { moveNode, deleteNode, gates, addInputA } = uselogicGatesStore();
   const [lineA, setLineA] = useState({ x: 0, y: 0 });
-  const [lineB, setLineB] = useState({ x: 0, y: 0 });
   const value = useValue(id);
 
   useEffect(() => {
@@ -40,18 +30,12 @@ const GateComponent: FC<GateType> = ({
           y: prevEnd.y + e.movementY,
         }));
       }
-      if (movingB) {
-        setLineB((prevEnd) => ({
-          x: prevEnd.x + e.movementX,
-          y: prevEnd.y + e.movementY,
-        }));
-      }
     }
 
     document.addEventListener("mousemove", onMouseMove);
 
     return () => document.removeEventListener("mousemove", onMouseMove);
-  }, [cursorDown, movingA, movingB]);
+  }, [cursorDown, movingA]);
 
   useEffect(() => {
     function onMouseUp() {
@@ -70,35 +54,18 @@ const GateComponent: FC<GateType> = ({
             addInputA(id, gate.id);
           }
         });
-      } else if (movingB) {
-        gates.forEach((gate) => {
-          if (
-            gate.posX + 80 >= posX + lineB.x &&
-            posX + lineB.x >= gate.posX &&
-            gate.posY + 80 >= posY + lineB.y &&
-            posY + lineB.y >= gate.posY &&
-            gate.id != id
-          ) {
-            console.log("gasjhsgdhj");
-
-            addInputB(id, gate.id);
-          }
-        });
       }
       setMovingA(false);
-      setMovingB(false);
     }
 
     window.addEventListener("mouseup", onMouseUp);
 
     return () => window.removeEventListener("mouseup", onMouseUp);
-  }, [lineA, lineB, movingA, movingB]);
+  }, [lineA, movingA]);
 
   useEffect(() => {
     if (!movingA) setLineA({ x: 0, y: 0 });
-    if (!movingB) setLineB({ x: 0, y: 0 });
-  }, [movingA, movingB]);
-
+  }, [movingA]);
 
   return (
     <div
@@ -143,23 +110,11 @@ const GateComponent: FC<GateType> = ({
             setMovingA(false);
             changeDraggingLine(false);
           }}
-          className="h-2 w-2 absolute left-[-0.55px] top-[25.2px] border-2 border-blue-600 hover:scale-125 transition ease-out rounded-full z-40"
+          className="h-2 w-2 absolute left-[-0.55px] top-[36px] border-2 border-blue-600 hover:scale-125 transition ease-out rounded-full z-40"
         />
-        <div
-          onMouseDown={(e) => {
-            e.preventDefault();
-            setMovingB(true);
-            changeDraggingLine(true);
-          }}
-          onMouseUp={(e) => {
-            e.preventDefault();
-            setMovingB(false);
-            changeDraggingLine(false);
-          }}
-          className="h-2 w-2 absolute left-[-0.55px] top-[45.25px] border-2 border-blue-600 hover:scale-125 transition ease-out rounded-full z-40"
-        />
-        <p className="absolute text-white">{value}</p>
         <GateIcon
+          //@ts-ignore
+          value={value}
           gate={gate}
           width={80}
           height={80}
@@ -173,10 +128,9 @@ const GateComponent: FC<GateType> = ({
             setCursorDown(false);
           }}
         />
-        {movingA && <Line order="A" line={lineA} />}
+        {movingA && <Line line={lineA} />}
         {inputA && (
           <Line
-            order="A"
             line={(() => {
               let line;
               gates.forEach((gate) => {
@@ -191,54 +145,27 @@ const GateComponent: FC<GateType> = ({
             })()}
           />
         )}
-        {movingB && <Line order="B" line={lineB} />}
-        {inputB && (
-          <Line
-            order="B"
-            line={(() => {
-              let line;
-              gates.forEach((gate) => {
-                if (gate.id == inputB) {
-                  line = {
-                    x: gate.posX - posX + 72,
-                    y: gate.posY - posY - 9.35,
-                  };
-                }
-              });
-              return line;
-            })()}
-          />
-        )}
       </div>
     </div>
   );
 };
 
-export default GateComponent;
+export default DisplayComponent;
 
 interface LineProps {
   line?: {
     x: number;
     y: number;
   };
-  order: "A" | "B";
 }
 
-const Line: FC<LineProps> = ({ line, order }) => {
+const Line: FC<LineProps> = ({ line }) => {
   if (!line) return <></>;
   return (
     <div
       className={`absolute -z-10 flex flex-row ${
         line.x >= 0 ? "left-[-0.55px]" : "right-[-0.55px]"
-      } ${
-        line.y >= 0
-          ? order == "A"
-            ? "top-[29.7px]"
-            : "top-[48.8px]"
-          : order == "A"
-          ? "-bottom-[29.7px]"
-          : "-bottom-[48.8px]"
-      }`}
+      } ${line.y >= 0 ? "top-[40.5px]" : "-bottom-[40.5px]"}`}
       style={{
         width: Math.abs(line.x),
         height: Math.abs(line.y),

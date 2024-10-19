@@ -9,6 +9,8 @@ interface LogicGatesState {
   reset: () => void;
   moveNode: (id: string, by: { x: number; y: number }) => void;
   deleteNode: (id: string) => void;
+  addInputA: (parentId: string, childId: string) => void;
+  addInputB: (parentId: string, childId: string) => void;
 }
 
 export const uselogicGatesStore = create<LogicGatesState>()(
@@ -42,6 +44,32 @@ export const uselogicGatesStore = create<LogicGatesState>()(
                 if (e.id == id) {
                   return false;
                 } else return true;
+              }),
+            ],
+          }));
+        },
+        addInputA: (parentId: string, childId: string) => {
+          set((state) => ({
+            gates: [
+              ...state.gates.map((e) => {
+                if (e.id == parentId) {
+                  return { ...e, inputA: childId };
+                } else {
+                  return { ...e };
+                }
+              }),
+            ],
+          }));
+        },
+        addInputB: (parentId: string, childId: string) => {
+          set((state) => ({
+            gates: [
+              ...state.gates.map((e) => {
+                if (e.id == parentId) {
+                  return { ...e, inputB: childId };
+                } else {
+                  return { ...e };
+                }
               }),
             ],
           }));

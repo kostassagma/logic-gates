@@ -5,9 +5,11 @@ import type {} from "@redux-devtools/extension"; // required for devtools typing
 interface GlobalSettingsType {
   cameraX: number;
   cameraY: number;
+  draggingLine: boolean;
   moveCamera: (by: { x: number; y: number }) => void;
   darkTheme: boolean;
   changeDarkTheme: (toggled: boolean) => void;
+  changeDraggingLine: (toggled: boolean) => void;
 }
 
 export const useGlobalSettingsStore = create<GlobalSettingsType>()(
@@ -23,9 +25,15 @@ export const useGlobalSettingsStore = create<GlobalSettingsType>()(
           }));
         },
         darkTheme: false,
+        draggingLine: false,
         changeDarkTheme: (toggled: boolean) => {
           set(() => ({
             darkTheme: toggled,
+          }));
+        },
+        changeDraggingLine: (toggled: boolean) => {
+          set(() => ({
+            draggingLine: toggled,
           }));
         },
       }),

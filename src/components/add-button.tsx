@@ -9,6 +9,9 @@ import XORIcon from "../icons/XOR";
 import NANDIcon from "../icons/NAND";
 import NORIcon from "../icons/NOR";
 import XNORIcon from "../icons/XNOR";
+import ONEIcon from "../icons/ONE";
+import ZEROIcon from "../icons/ZERO";
+import DISPLAYIcon from "../icons/DISPLAY";
 
 // interface Props {
 //   add: React.Dispatch<React.SetStateAction<LogicNode[]>>;
@@ -19,7 +22,9 @@ const AddButton: FC = () => {
   const { cameraX, cameraY } = useGlobalSettingsStore();
   const { add } = uselogicGatesStore();
 
-  function onClick(gate: "AND" | "OR" | "XOR" | "NAND" | "XNOR" | "NOR") {
+  function onClick(
+    gate: "AND" | "OR" | "XOR" | "NAND" | "XNOR" | "NOR" | "1" | "0" | "DISPLAY"
+  ) {
     add({
       gate,
       id: nanoid(),
@@ -111,6 +116,39 @@ const AddButton: FC = () => {
         >
           <XNORIcon width={40} height={40} />
           <p className="my-auto">Xnor Gate</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("1");
+          }}
+        >
+          <ONEIcon width={40} height={40} />
+          <p className="my-auto">1 Value</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("0");
+          }}
+        >
+          <ZEROIcon width={40} height={40} />
+          <p className="my-auto">0 Value</p>
+        </button>
+        <button
+          className="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all ease-in-out flex flex-row gap-1"
+          onClick={(e) => {
+            e.preventDefault();
+            setAdding(false);
+            onClick("DISPLAY");
+          }}
+        >
+          <DISPLAYIcon width={40} height={40} />
+          <p className="my-auto">Display</p>
         </button>
       </div>
       <button
