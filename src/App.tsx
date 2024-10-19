@@ -8,6 +8,7 @@ import { useGlobalSettingsStore } from "./state/global-settings";
 import ThemeToggle from "./components/theme-toggle";
 import DisplayComponent from "./gates/diplay-component";
 import InputComponent from "./gates/input-component";
+import GithubIcon from "./icons/github";
 
 interface CameraContextType {
   x: number;
@@ -67,6 +68,13 @@ function App() {
       })}
       <AddButton />
       <ThemeToggle />
+      <a
+        href="https://github.com/kostassagma/logic-gates"
+        target="_blank"
+        className={`z-50 fixed bottom-5 left-5 rounded-full bg-white dark:bg-black dark:text-gray-300 shadow-xl p-3 transition ease-in-out hover:scale-105`}
+      >
+        <GithubIcon width={25} height={25} />
+      </a>
     </div>
   );
 }
