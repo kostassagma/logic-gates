@@ -155,7 +155,6 @@ const GateComponent: FC<GateType> = ({
           }}
           className="h-2 w-2 absolute left-[-0.55px] top-[45.25px] border-2 border-blue-600 hover:scale-125 transition ease-out rounded-full z-40"
         />
-        <p className="absolute text-white">{value}</p>
         <GateIcon
           gate={gate}
           width={80}
