@@ -133,6 +133,7 @@ const GateComponent: FC<GateType> = ({
           onMouseDown={(e) => {
             e.preventDefault();
             setMovingA(true);
+            addInputA(id, "");
             changeDraggingLine(true);
           }}
           onMouseUp={(e) => {
@@ -146,6 +147,7 @@ const GateComponent: FC<GateType> = ({
           onMouseDown={(e) => {
             e.preventDefault();
             setMovingB(true);
+            addInputB(id, "");
             changeDraggingLine(true);
           }}
           onMouseUp={(e) => {
