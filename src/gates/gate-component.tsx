@@ -63,8 +63,8 @@ const GateComponent: FC<GateType> = ({
           if (
             gate.posX + 80 >= posX + lineA.x &&
             posX + lineA.x >= gate.posX &&
-            gate.posY + 80 >= posY + lineA.y &&
-            posY + lineA.y >= gate.posY &&
+            gate.posY + 80 >= posY + lineA.y + 29.7 &&
+            posY + lineA.y + 29.7 >= gate.posY &&
             gate.id != id
           ) {
             addInputA(id, gate.id);
@@ -75,12 +75,10 @@ const GateComponent: FC<GateType> = ({
           if (
             gate.posX + 80 >= posX + lineB.x &&
             posX + lineB.x >= gate.posX &&
-            gate.posY + 80 >= posY + lineB.y &&
-            posY + lineB.y >= gate.posY &&
+            gate.posY + 80 >= posY + lineB.y + 48.8 &&
+            posY + lineB.y + 48.8 >= gate.posY &&
             gate.id != id
           ) {
-            console.log("gasjhsgdhj");
-
             addInputB(id, gate.id);
           }
         });
@@ -98,7 +96,6 @@ const GateComponent: FC<GateType> = ({
     if (!movingA) setLineA({ x: 0, y: 0 });
     if (!movingB) setLineB({ x: 0, y: 0 });
   }, [movingA, movingB]);
-
 
   return (
     <div
