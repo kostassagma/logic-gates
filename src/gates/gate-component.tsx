@@ -3,7 +3,6 @@ import { GateType } from "./types";
 import { uselogicGatesStore } from "../state/gates";
 import { useGlobalSettingsStore } from "../state/global-settings";
 import GateIcon from "./gate-icon";
-import { useValue } from "./get-value";
 
 // interface Props extends GateType {}
 
