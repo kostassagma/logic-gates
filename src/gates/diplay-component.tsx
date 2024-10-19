@@ -137,7 +137,7 @@ const DisplayComponent: FC<GateType> = ({ posX, posY, id, gate, inputA }) => {
                 if (gate.id == inputA) {
                   line = {
                     x: gate.posX - posX + 72,
-                    y: gate.posY - posY + 9.75,
+                    y: gate.posY - posY -0.75,
                   };
                 }
               });
