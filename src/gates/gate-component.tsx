@@ -223,6 +223,22 @@ interface LineProps {
 
 const Line: FC<LineProps> = ({ line, order }) => {
   if (!line) return <></>;
+  const [cursorDown, setCursorDown] = useState(false);
+  const { moveCamera } = useGlobalSettingsStore();
+  useEffect(() => {
+    function onMouseMove(e: MouseEvent) {
+      if (cursorDown) {
+        moveCamera({
+          x: e.movementX,
+          y: e.movementY,
+        });
+      }
+    }
+
+    document.addEventListener("mousemove", onMouseMove);
+
+    return () => document.removeEventListener("mousemove", onMouseMove);
+  }, [cursorDown, moveCamera]);
   return (
     <div
       className={`absolute -z-10 flex flex-row ${
@@ -247,6 +263,14 @@ const Line: FC<LineProps> = ({ line, order }) => {
             : line.x >= 0
             ? "scale(1, -1)"
             : "scale(1, 1)",
+      }}
+      onMouseDown={(e) => {
+        e.preventDefault();
+        setCursorDown(true);
+      }}
+      onMouseUp={(e) => {
+        e.preventDefault();
+        setCursorDown(false);
       }}
     >
       <span
