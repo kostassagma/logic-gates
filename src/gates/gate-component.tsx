@@ -24,7 +24,6 @@ const GateComponent: FC<GateType> = ({
     uselogicGatesStore();
   const [lineA, setLineA] = useState({ x: 0, y: 0 });
   const [lineB, setLineB] = useState({ x: 0, y: 0 });
-  const value = useValue(id);
 
   useEffect(() => {
     function onMouseMove(e: MouseEvent) {
