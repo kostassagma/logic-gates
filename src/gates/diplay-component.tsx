@@ -47,8 +47,8 @@ const DisplayComponent: FC<GateType> = ({ posX, posY, id, gate, inputA }) => {
           if (
             gate.posX + 80 >= posX + lineA.x &&
             posX + lineA.x >= gate.posX &&
-            gate.posY + 80 >= posY + lineA.y &&
-            posY + lineA.y >= gate.posY &&
+            gate.posY + 80 >= posY + lineA.y + 40.5 &&
+            posY + lineA.y + 40.5 >= gate.posY &&
             gate.id != id
           ) {
             addInputA(id, gate.id);
@@ -137,7 +137,7 @@ const DisplayComponent: FC<GateType> = ({ posX, posY, id, gate, inputA }) => {
                 if (gate.id == inputA) {
                   line = {
                     x: gate.posX - posX + 72,
-                    y: gate.posY - posY -0.75,
+                    y: gate.posY - posY - 0.75,
                   };
                 }
               });
@@ -180,13 +180,13 @@ const Line: FC<LineProps> = ({ line }) => {
       }}
     >
       <span
-        className={`h-1/3 mb-auto w-full translate-x-[0.5px]  border-t-[1px] border-r-[1px] border-white rounded-tr-full`}
+        className={`h-1/3 mb-auto w-full translate-x-[0.5px]  border-t-[1px] border-r-[1px] border-black dark:border-white rounded-tr-full`}
       />
       <span
-        className={`h-[34%] mt-auto absolute w-[1px] bg-white left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
+        className={`h-[34%] mt-auto absolute w-[1px] bg-black dark:bg-white left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
       />
       <span
-        className={`h-1/3 mt-auto w-full -translate-x-[0.5px] border-l-[1px] border-b-[1px] border-white rounded-bl-full`}
+        className={`h-1/3 mt-auto w-full -translate-x-[0.5px] border-l-[1px] border-b-[1px] border-black dark:border-white rounded-bl-full`}
       />
     </div>
   );

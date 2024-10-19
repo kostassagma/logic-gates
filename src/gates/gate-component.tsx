@@ -250,13 +250,13 @@ const Line: FC<LineProps> = ({ line, order }) => {
       }}
     >
       <span
-        className={`h-1/3 mb-auto w-full translate-x-[0.5px]  border-t-[1px] border-r-[1px] border-white rounded-tr-full`}
+        className={`h-1/3 mb-auto w-full translate-x-[0.5px]  border-t-[1px] border-r-[1px] border-black dark:border-white rounded-tr-full`}
       />
       <span
-        className={`h-[34%] mt-auto absolute w-[1px] bg-white left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
+        className={`h-[34%] mt-auto absolute w-[1px] bg-black dark:bg-white left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2`}
       />
       <span
-        className={`h-1/3 mt-auto w-full -translate-x-[0.5px] border-l-[1px] border-b-[1px] border-white rounded-bl-full`}
+        className={`h-1/3 mt-auto w-full -translate-x-[0.5px] border-l-[1px] border-b-[1px] border-black dark:border-white rounded-bl-full`}
       />
     </div>
   );
