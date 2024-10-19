@@ -25,7 +25,7 @@ function getValue(gates: GateType[], id?: string): boolean {
       return getValue(gates, gate.inputA) && getValue(gates, gate.inputB);
       break;
     case "OR":
-      return getValue(gates, gate.inputA) || getValue(gates, gate.inputB);
+      return !(!getValue(gates, gate.inputA) && !getValue(gates, gate.inputB));
       break;
     case "XOR":
       return getValue(gates, gate.inputA) != getValue(gates, gate.inputB);
@@ -34,7 +34,7 @@ function getValue(gates: GateType[], id?: string): boolean {
       return !(getValue(gates, gate.inputA) && getValue(gates, gate.inputB));
       break;
     case "NOR":
-      return !(getValue(gates, gate.inputA) || getValue(gates, gate.inputB));
+      return (!getValue(gates, gate.inputA) && !getValue(gates, gate.inputB));
       break;
     case "XNOR":
       return getValue(gates, gate.inputA) == getValue(gates, gate.inputB);
