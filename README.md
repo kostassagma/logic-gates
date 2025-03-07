@@ -16,4 +16,4 @@ npm run preview
 
 ## Tech stack
 
-[![Logic Gates Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=Logic+Gates+Tech+Stack&lineCount=1&line1=react%2Creact%2C00b3ff%3Bzustand%2Czustand%2C6a3c09%3Bvite%2Cvite%2C6714c7%3B)
+![Logic Gates Tech Stack](https://github-readme-tech-stack.vercel.app/api/cards?title=Logic+Gates+Tech+Stack&lineCount=1&line1=react%2Creact%2C00b3ff%3Bzustand%2Czustand%2C6a3c09%3Bvite%2Cvite%2C6714c7%3B)
